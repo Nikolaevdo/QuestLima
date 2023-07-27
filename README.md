@@ -1,62 +1,71 @@
-Доброго времени. Помоги пожалуйста со вторым заданием по Grafana. Я уперся в стенку и не понимаю как дальше действововать!
+$ sudo apt-get update
+Hit:1 http://security.ubuntu.com/ubuntu focal-security InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu focal-backports InRelease
+Reading package lists... Done
+$ sudo apt-get install git
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following additional packages will be installed:
+  git-man liberror-perl
+Suggested packages:
+  git-daemon-run | git-daemon-sysvinit git-doc git-el git-email git-gui gitk gitweb git-cvs git-mediawiki git-svn
+The following NEW packages will be installed:
+  git git-man liberror-perl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 6,195 kB of archives.
+After this operation, 34.3 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.ubuntu.com/ubuntu focal/main amd64 liberror-perl all 0.17029-1 [26.2 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 git-man all 1:2.25.1-1ubuntu3.1 [803 kB]
+Get:3 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 git amd64 1:2.25.1-1ubuntu3.1 [5,366 kB]
+Fetched 6,195 kB in 1s (4,464 kB/s)
+Selecting previously unselected package liberror-perl.
+(Reading database ... 170983 files and directories currently installed.)
+Preparing to unpack .../liberror-perl_0.17029-1_all.deb ...
+Unpacking liberror-perl (0.17029-1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../git-man_1%3a2.25.1-1ubuntu3.1_all.deb ...
+Unpacking git-man (1:2.25.1-1ubuntu3.1) ...
+Selecting previously unselected package git.
+Preparing to unpack .../git_1%3a2.25.1-1ubuntu3.1_amd64.deb ...
+Unpacking git (1:2.25.1-1ubuntu3.1) ...
+Setting up liberror-perl (0.17029-1) ...
+Setting up git-man (1:2.25.1-1ubuntu3.1) ...
+Setting up git (1:2.25.1-1ubuntu3.1) ...
+$ git config --global user.name "Your Name"
+$ git config --global user.email "your.email@example.com"
+$ mkdir rebrain-devops-task1
+$ cd rebrain-devops-task1
+$ git init
+Initialized empty Git repository in /home/user/rebrain-devops-task1/.git/
+$ nano nginx.conf # добавляем конфигурацию nginx
+$ nano README.md # добавляем описание репозитория
+$ git add README.md
+$ git commit -m "Added README.md"
+[master (root-commit) 9e1f10e] Added README.md
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+$ git add nginx.conf
+$ git commit -m "Added nginx.conf"
+[master 0c97b1d] Added nginx.conf
+ 1 file changed, 23 insertions(+)
+ create mode 100644 nginx.conf
+$ git log
+commit 0c97b1d6a0a1df7d2b2b8a8f9d2b7f1d3a3b2f4c (HEAD -> master)
+Author: Your Name <your.email@example.com>
+Date:   Tue Jul 27 08:00:00 2023 +0000
 
-Создать организацию в GitLab.
+    Added nginx.conf
 
-Подсказка: зарегистрируетесь в GitLab. Для настройки орагнизации воспользуйтесь соответствующим разделом документации.
+commit 9e1f10ea0a1df7d2b2b8a8f9d2b7f1d3a3b2f4c
+Author: Your Name <your.email@example.com>
+Date:   Tue Jul 27 07:50:00 2023 +0000
 
-Включить и настроить GitLab Auth в конфигурациях grafanа.ini.
+    Added README.md
 
-Подсказка: конфигурационный файл по умолчанию располагается в /etc/grafana/grafana.ini.
-
-Проверить работу внешнего провайдера авторизации.
-
-Подсказка: не забудьте сменить параметр root_url в конфиг-файле Grafana для корректной работы обратного редиректа после авторизации в GitLab.
-
-
-Настройки 
-
-
-№root_url = http://206.189.110.226:3000/login/gitlab
-
-
-#################################### GitLab Auth #########################
-[auth.gitlab]
-enabled = true
-allow_sign_up = true
-client_id = 8bbbb1767d3cf0a2d0c6feb92807bf985ad257a34c8b5f32cae49a0dd281e27c
-client_secret = 5ff8d5571460cbe78dd57c9f50d18e690bd8945e707ffabe2f09b606bc2bd759
-scopes = api
-auth_url = https://gitlab.com/oauth/authorize
-token_url = https://gitlab.com/oauth/token
-api_url = https://gitlab.com/api/v4
-№allowed_domains =
-№allowed_groups =
-###############################################################################
-я взял client_id, client_secret в user settings - Aplication 
-Application: testesdddd
-Application ID	8bbbb1767d3cf0a2d0c6feb92807bf985ad257a34c8b5f32cae49a0dd281e27c
-Secret	5ff8d5571460cbe78dd57c9f50d18e690bd8945e707ffabe2f09b606bc2bd759
-Callback URL	http://206.189.110.226:3000/login/gitlab
-
-Scopes	
-api (Access the authenticated user's API)
-read_api (Read Api)
-read_user (Read the authenticated user's personal information)
-create_runner (Grants create access to the runners)
-read_repository (Allows read-only access to the repository)
-write_repository (Allows read-write access to the repository)
-read_registry (Grants permission to read container registry images)
-read_observability (Allows read-only access to GitLab Observability)
-write_observability (Allows read-write access to GitLab Observability)
-sudo (Perform API actions as any user in the system)
-admin_mode (Admin Mode is a functionality designed to limit the access level of administrator's personal access tokens.)
-openid (Authenticate using OpenID Connect)
-profile (Allows read-only access to the user's personal information using OpenID Connect)
-email (Allows read-only access to the user's primary email address using OpenID Connect)
-При переходе на Callback URL	http://206.189.110.226:3000/login/gitlab Я получаю ошибку 
-
-An error has occurred
-The redirect URI included is not valid.
-
-
-№В чем может быть причина?
+$ git status
+On branch master
+nothing to commit, working tree clean
